@@ -1,0 +1,37 @@
+{
+  "HOME" : {
+    "TITTLE" : "PK Visualization Tool",
+    "TEXT1" : "This is a depiction of the variation between frequent versus less frequent infusions of FVIII clotting factor concentrate.",
+    "TEXT2" : "Images are illustrative of the relationships between dosing options of a standard half life product and an extended half life product and the impact on FVIII activity levels based on current SmPC data. (reference dates accessed)",
+    "TEXT3" : "This illustrative model is not intended to predict activity levels for a specific patient or to influence treatment decisions related to a specific patient.",
+    "TEXT4" : "The data used to generate the PK curves is based trial data from on patients over 12 years of age.  The annual consumption calculation assumes a patient weight of 70kg.",
+    "BUTTON" : "Get Started",
+    "LAYER2" : {
+      "LAYER3":"Hello from layer 3",
+      "LAYER33":{
+        "LAYER4":"HELLO from layer 4"
+      }
+    }
+  },
+
+  "MED_CARD": {
+  	"DOSE": "Dose",
+  	"DOSE_INTERVAL": "Dosing Interval",
+  	"DAYS": "Days",
+    "IU_KG": "IU/kg"
+  },
+  "OUTPUT_CARD": {
+    "HEADER": "Output",
+    "SLIDE_ABOVE": "Percentage of time above ",
+    "SLIDE_BELOW": "Percentage of time below ",
+    "SLIDE_CONSUMPTION": "Consumption",
+    "PER_FULL_CYCLE": "PER FULL CYCLE",
+    "PER_YEAR": "PER YEAR",
+    "TROUGH_LEVEL":"Trough Level",
+    "IU_DL": "IU/dL",
+    "INFO_ICON_TEXT":"Note: All the calculations performed on full cycles" 
+  },
+  "GRAPH": {
+    "NOTE": "Note - This prototype is not intended to predict activity levels for a particular patient or influence a specific patient’s treatment decision."
+  }
+}

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Localization APP
+    </ion-title>
+    <ion-buttons end color="danger">
+      <button ion-button outline color="danger" (click)="export()">
+        EXPORT
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let data of inputArray">
+    <ion-card-header>
+      {{data.key}}
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{data.value}}</p>
+      <ion-item>
+          <ion-label style="margin:0px;"></ion-label>
+          <div item-content style="width:100%;">
+            <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>
+          </div>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
