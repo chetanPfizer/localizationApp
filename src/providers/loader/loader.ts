@@ -33,8 +33,8 @@ export class LoaderProvider {
 
   }
 
-  setOutput(array){
-    this.structuring(array)
+  setOutput(array):any{
+    return this.structuring(array);
   }
 
   private process(key,value) {
@@ -81,9 +81,10 @@ export class LoaderProvider {
       }
       this.tempName = "";
   }
-
-  private structuring(uniJson){
+  private _uniJson
+  private structuring(uniJson):any {
     // console.log(uniJson);
+    this._uniJson = uniJson
     let mulJson = {};
     let keysArray = []
     for(let key in uniJson){      
@@ -91,7 +92,7 @@ export class LoaderProvider {
       keysArray.push(keys);  
       // console.log(this.getObject(keys,uniJson[key]));
     }
-    console.log(this.getObjectFinal(keysArray,"aa"))
+    return this.getObjectFinal(keysArray,"")
 
   }
   
@@ -108,29 +109,28 @@ export class LoaderProvider {
 
   getObjectFinal(keysArray, value){
 // Getting unique keys at first index of provided keysArray
-    if(keysArray[0] == "" || keysArray[0] == null || keysArray[0] == undefined){
-      console.log("eddddddddd");
-      let returnValue = {}
-      returnValue[keysArray[0]] = value
-      return returnValue;
+    if(keysArray[0] == "" ){
+      //Recursion termination case
+      return this._uniJson[value];
     }
+
+    //Getting uniqueKey
     let uniqueKey = [];
     for(let i in keysArray){
       if(uniqueKey.indexOf(keysArray[i][0])<0){
         uniqueKey.push(keysArray[i][0])
       }
     } 
-    // console.log(uniqueKey);
     let returnValue = {}
     for(let i in uniqueKey){
       let newKeysArray = keysArray.filter((e)=>{ return e[0] === uniqueKey[i] }); 
-      console.log(newKeysArray);
+      // console.log(newKeysArray);
       let keyNow = newKeysArray[0]
       for(let j in newKeysArray){
           newKeysArray[j] = newKeysArray[j].slice(1);
-      }
-      
-      returnValue[keyNow] = this.getObjectFinal(newKeysArray, "a");
+      }   
+      // console.log(keyNow[0]);   
+      returnValue[keyNow[0]] = this.getObjectFinal(newKeysArray, value + ((value=="")?"":".") + keyNow[0]);
       
     }
     return returnValue;

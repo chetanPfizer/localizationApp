@@ -53,12 +53,63 @@ var HomePage = (function () {
         this.loaderProvider = loaderProvider;
         this.inputArray = [];
         this.outputArray = {};
+        this.progess = 0;
+        this.languages = [
+            {
+                code: "en",
+                text: "English"
+            },
+            {
+                code: "es",
+                text: "Spanish"
+            },
+            {
+                code: "nl",
+                text: "Dutch"
+            },
+            {
+                code: "fr",
+                text: "French"
+            },
+            {
+                code: "de",
+                text: "German"
+            },
+            {
+                code: "it",
+                text: "Italian"
+            },
+            {
+                code: "pt",
+                text: "Portuguese"
+            },
+            {
+                code: "ja",
+                text: "Japanese"
+            },
+            {
+                code: "ko",
+                text: "Korean"
+            },
+            {
+                code: "zh-CN",
+                text: "Simple Chinese"
+            },
+            {
+                code: "zh-CN",
+                text: "Traditional Chinese"
+            },
+        ];
         if (localStorage.getItem("outputArray") != undefined) {
             this.outputArray = JSON.parse(localStorage.getItem("outputArray"));
         }
         loaderProvider.getInput().subscribe(function (data) {
             // console.log(data);
             _this.inputArray = data;
+            _this.inputArray = _this.inputArray.map(function (d) {
+                d["isDone"] = false;
+                return d;
+            });
         });
     }
     HomePage.prototype.onValueChange = function (key, value) {
@@ -67,17 +118,37 @@ var HomePage = (function () {
         localStorage.setItem("outputArray", JSON.stringify(this.outputArray));
     };
     HomePage.prototype.export = function () {
-        this.loaderProvider.setOutput(this.outputArray);
+        this.download(this.loaderProvider.setOutput(this.outputArray));
+        console.log(encodeURI(JSON.stringify(this.outputArray)));
+    };
+    HomePage.prototype.download = function (val) {
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(val));
+        var dlAnchorElem = document.getElementById('downloadAnchorElem');
+        dlAnchorElem.setAttribute("href", dataStr);
+        dlAnchorElem.setAttribute("download", this.outputLang + ".json");
+        dlAnchorElem.click();
+    };
+    HomePage.prototype.markAsDone = function (i) {
+        this.inputArray[i].isDone = !this.inputArray[i].isDone;
+        this.calculateProgress();
+    };
+    HomePage.prototype.calculateProgress = function () {
+        var completed = this.inputArray.filter(function (ele) {
+            return ele.isDone;
+        });
+        this.progess = Math.round((100 * completed.length / this.inputArray.length + 0.00001) * 100) / 100;
+        console.log(100 * completed.length / this.inputArray.length);
     };
     return HomePage;
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/Users/pramodudakeri/Desktop/Localize/Localize/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Localization APP\n    </ion-title>\n    <ion-buttons end color="danger">\n      <button ion-button outline color="danger" (click)="export()">\n        EXPORT\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-card *ngFor="let data of inputArray">\n    <ion-card-header>\n      {{data.key}}\n    </ion-card-header>\n    <ion-card-content>\n      <p>{{data.value}}</p>\n      <ion-item>\n          <ion-label style="margin:0px;"></ion-label>\n          <div item-content style="width:100%;">\n            <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>\n          </div>\n      </ion-item>\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/Users/pramodudakeri/Desktop/Localize/Localize/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/Users/pramodudakeri/Desktop/Localize/Localize/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Localization APP\n    </ion-title>\n    <ion-buttons end color="danger">\n      <button ion-button outline color="danger" (click)="export()">\n        EXPORT\n      </button>\n    </ion-buttons>\n    <a id="downloadAnchorElem" style="display:none"></a>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12 col-sm-4 >\n        <ion-list>\n          <ion-item>\n            <ion-label>Input Language</ion-label>\n              <ion-select [(ngModel)]="inputLang">\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-list>\n        <ion-list>\n          <ion-item>\n            <ion-label>Output Language</ion-label>\n              <ion-select [(ngModel)]="outputLang">\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-list>\n        <ion-item>\n          <ion-label>Progress</ion-label>\n          <ion-badge item-end [color]="(progess==100)?\'secondary\':\'primary\'">{{progess}} %</ion-badge>\n        </ion-item>\n      </ion-col>\n      <ion-col col-12 col-sm-8>\n        <section>\n          <ion-card *ngFor="let data of inputArray; let i = index">\n            <ion-card-header>\n              {{data.key}}\n            </ion-card-header>\n            <ion-card-content>\n              <p>{{data.value}}</p>\n              <ion-item>\n                  <ion-label style="margin:0px;"></ion-label>\n                  <div item-content style="width:100%;">\n                    <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>\n                  </div>\n              </ion-item>\n              <ion-item>\n                    <button ion-button outline color="danger" (click)="export()" >Google Translate</button>\n                    <button ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>\n              </ion-item>\n            </ion-card-content>\n          </ion-card>\n        </section>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/Users/pramodudakeri/Desktop/Localize/Localize/src/pages/home/home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */]) === "function" && _b || Object])
 ], HomePage);
 
+var _a, _b;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -128,7 +199,7 @@ var LoaderProvider = (function () {
         });
     };
     LoaderProvider.prototype.setOutput = function (array) {
-        this.structuring(array);
+        return this.structuring(array);
     };
     LoaderProvider.prototype.process = function (key, value) {
         console.log(key + " : " + value);
@@ -174,6 +245,7 @@ var LoaderProvider = (function () {
     };
     LoaderProvider.prototype.structuring = function (uniJson) {
         // console.log(uniJson);
+        this._uniJson = uniJson;
         var mulJson = {};
         var keysArray = [];
         for (var key in uniJson) {
@@ -181,7 +253,7 @@ var LoaderProvider = (function () {
             keysArray.push(keys);
             // console.log(this.getObject(keys,uniJson[key]));
         }
-        console.log(this.getObjectFinal(keysArray, "aa"));
+        return this.getObjectFinal(keysArray, "");
     };
     LoaderProvider.prototype.getObject = function (keys, value) {
         var returnValue = {};
@@ -196,28 +268,27 @@ var LoaderProvider = (function () {
     };
     LoaderProvider.prototype.getObjectFinal = function (keysArray, value) {
         // Getting unique keys at first index of provided keysArray
-        if (keysArray[0] == "" || keysArray[0] == null || keysArray[0] == undefined) {
-            console.log("eddddddddd");
-            var returnValue_1 = {};
-            returnValue_1[keysArray[0]] = value;
-            return returnValue_1;
+        if (keysArray[0] == "") {
+            //Recursion termination case
+            return this._uniJson[value];
         }
+        //Getting uniqueKey
         var uniqueKey = [];
         for (var i in keysArray) {
             if (uniqueKey.indexOf(keysArray[i][0]) < 0) {
                 uniqueKey.push(keysArray[i][0]);
             }
         }
-        // console.log(uniqueKey);
         var returnValue = {};
         var _loop_1 = function (i) {
             var newKeysArray = keysArray.filter(function (e) { return e[0] === uniqueKey[i]; });
-            console.log(newKeysArray);
+            // console.log(newKeysArray);
             var keyNow = newKeysArray[0];
             for (var j in newKeysArray) {
                 newKeysArray[j] = newKeysArray[j].slice(1);
             }
-            returnValue[keyNow] = this_1.getObjectFinal(newKeysArray, "a");
+            // console.log(keyNow[0]);   
+            returnValue[keyNow[0]] = this_1.getObjectFinal(newKeysArray, value + ((value == "") ? "" : ".") + keyNow[0]);
         };
         var this_1 = this;
         for (var i in uniqueKey) {
