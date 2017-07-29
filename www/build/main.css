@@ -25203,3 +25203,24 @@ page-home section {
   height: calc( 100vh - 100px);
   overflow: scroll;
 }
+
+page-home .file-input-wrapper ion-label {
+  width: 200px;
+  height: 40px;
+  overflow: hidden;
+  position: relative;
+}
+
+page-home .file-input-wrapper ion-label > input[type="file"] {
+  font-size: 200px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+}
+
+page-home .file-input-wrapper ion-label > .btn-file-input {
+  display: inline-block;
+  width: 200px;
+  height: 40px;
+}

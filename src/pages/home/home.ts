@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoaderProvider } from '../../providers/loader/loader'
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-home',
@@ -12,29 +13,35 @@ export class HomePage {
   progess:number = 0;
   outputLang:string;
   inputLang: string;
+  subscription:Subscription;
 
   constructor(public navCtrl: NavController, public loaderProvider: LoaderProvider) {
-    if(localStorage.getItem("outputArray") != undefined){
-      this.outputArray = JSON.parse(localStorage.getItem("outputArray"));
-    }
-    
-    loaderProvider.getInput().subscribe((data: any)=>{
-      // console.log(data);
-      this.inputArray = data;
-      this.inputArray = this.inputArray.map((d)=>{
-        d["isDone"] = false;
-        return d;
+
+
+      this.subscription = this.loaderProvider.getInput$.subscribe((data) => { 
+        // console.log(data);
+        if(localStorage.getItem("outputArray") != undefined){
+          this.outputArray = JSON.parse(localStorage.getItem("outputArray"));
+        }
+        if(data == undefined){
+          if(localStorage.getItem("inputArray") != undefined){
+            this.inputArray = JSON.parse(localStorage.getItem("inputArray"));
+          }
+        }
+        else{
+          this.inputArray = data;
+          this.inputArray = this.inputArray.map((d)=>{
+            d["isDone"] = false;
+            return d;
+          });
+          localStorage.setItem("inputArray",JSON.stringify(this.inputArray));
+        }
+
       })
-    });
   }
   onValueChange(key, value){
     this.outputArray[key] = value;
-    console.log(this.outputArray);
     localStorage.setItem("outputArray",JSON.stringify(this.outputArray))
-  }
-  export(){
-    this.download(this.loaderProvider.setOutput( this.outputArray));
-    console.log(encodeURI(JSON.stringify(this.outputArray)));
   }
   download(val){
     let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(val));
@@ -45,6 +52,7 @@ export class HomePage {
   }
   markAsDone(i){
     this.inputArray[i].isDone = !this.inputArray[i].isDone;
+    localStorage.setItem("inputArray",JSON.stringify(this.inputArray))
     this.calculateProgress();
   }
   calculateProgress(){
@@ -54,6 +62,12 @@ export class HomePage {
     this.progess = Math.round((100*completed.length/this.inputArray.length + 0.00001) * 100) / 100;
     console.log(100*completed.length/this.inputArray.length)
   }
+
+
+  fileUploaded(event) {
+    this.loaderProvider.fileUploaded(event);
+  }
+ 
   
 
 

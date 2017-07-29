@@ -4,7 +4,7 @@
       Localization APP
     </ion-title>
     <ion-buttons end color="danger">
-      <button ion-button outline color="danger" (click)="export()">
+      <button ion-button outline color="danger" (click)="download()">
         EXPORT
       </button>
     </ion-buttons>
@@ -35,6 +35,9 @@
         <ion-item>
           <ion-label>Progress</ion-label>
           <ion-badge item-end [color]="(progess==100)?'secondary':'primary'">{{progess}} %</ion-badge>
+        </ion-item>
+        <ion-item>
+          <input type='file'  (change)="fileUploaded($event)" />
         </ion-item>
       </ion-col>
       <ion-col col-12 col-sm-8>

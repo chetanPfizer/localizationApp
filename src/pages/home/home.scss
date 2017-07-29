@@ -3,5 +3,23 @@ page-home {
         height: calc( 100vh - 100px );
         overflow: scroll;
     }
+    .file-input-wrapper ion-label {
+        width: 200px;
+        height: 40px;
+        overflow: hidden;
+        position: relative;
+    }
+    .file-input-wrapper ion-label > input[type="file"] {
+        font-size: 200px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0;
+    }
+    .file-input-wrapper ion-label > .btn-file-input {
+        display: inline-block;
+        width: 200px;
+        height: 40px;
+    }
     
 }

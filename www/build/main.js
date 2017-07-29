@@ -100,26 +100,29 @@ var HomePage = (function () {
                 text: "Traditional Chinese"
             },
         ];
-        if (localStorage.getItem("outputArray") != undefined) {
-            this.outputArray = JSON.parse(localStorage.getItem("outputArray"));
-        }
-        loaderProvider.getInput().subscribe(function (data) {
+        this.subscription = this.loaderProvider.getInput$.subscribe(function (data) {
             // console.log(data);
-            _this.inputArray = data;
-            _this.inputArray = _this.inputArray.map(function (d) {
-                d["isDone"] = false;
-                return d;
-            });
+            if (localStorage.getItem("outputArray") != undefined) {
+                _this.outputArray = JSON.parse(localStorage.getItem("outputArray"));
+            }
+            if (data == undefined) {
+                if (localStorage.getItem("inputArray") != undefined) {
+                    _this.inputArray = JSON.parse(localStorage.getItem("inputArray"));
+                }
+            }
+            else {
+                _this.inputArray = data;
+                _this.inputArray = _this.inputArray.map(function (d) {
+                    d["isDone"] = false;
+                    return d;
+                });
+                localStorage.setItem("inputArray", JSON.stringify(_this.inputArray));
+            }
         });
     }
     HomePage.prototype.onValueChange = function (key, value) {
         this.outputArray[key] = value;
-        console.log(this.outputArray);
         localStorage.setItem("outputArray", JSON.stringify(this.outputArray));
-    };
-    HomePage.prototype.export = function () {
-        this.download(this.loaderProvider.setOutput(this.outputArray));
-        console.log(encodeURI(JSON.stringify(this.outputArray)));
     };
     HomePage.prototype.download = function (val) {
         var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(val));
@@ -130,6 +133,7 @@ var HomePage = (function () {
     };
     HomePage.prototype.markAsDone = function (i) {
         this.inputArray[i].isDone = !this.inputArray[i].isDone;
+        localStorage.setItem("inputArray", JSON.stringify(this.inputArray));
         this.calculateProgress();
     };
     HomePage.prototype.calculateProgress = function () {
@@ -139,11 +143,14 @@ var HomePage = (function () {
         this.progess = Math.round((100 * completed.length / this.inputArray.length + 0.00001) * 100) / 100;
         console.log(100 * completed.length / this.inputArray.length);
     };
+    HomePage.prototype.fileUploaded = function (event) {
+        this.loaderProvider.fileUploaded(event);
+    };
     return HomePage;
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/Users/pramodudakeri/Desktop/Localize/Localize/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Localization APP\n    </ion-title>\n    <ion-buttons end color="danger">\n      <button ion-button outline color="danger" (click)="export()">\n        EXPORT\n      </button>\n    </ion-buttons>\n    <a id="downloadAnchorElem" style="display:none"></a>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12 col-sm-4 >\n        <ion-list>\n          <ion-item>\n            <ion-label>Input Language</ion-label>\n              <ion-select [(ngModel)]="inputLang">\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-list>\n        <ion-list>\n          <ion-item>\n            <ion-label>Output Language</ion-label>\n              <ion-select [(ngModel)]="outputLang">\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-list>\n        <ion-item>\n          <ion-label>Progress</ion-label>\n          <ion-badge item-end [color]="(progess==100)?\'secondary\':\'primary\'">{{progess}} %</ion-badge>\n        </ion-item>\n      </ion-col>\n      <ion-col col-12 col-sm-8>\n        <section>\n          <ion-card *ngFor="let data of inputArray; let i = index">\n            <ion-card-header>\n              {{data.key}}\n            </ion-card-header>\n            <ion-card-content>\n              <p>{{data.value}}</p>\n              <ion-item>\n                  <ion-label style="margin:0px;"></ion-label>\n                  <div item-content style="width:100%;">\n                    <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>\n                  </div>\n              </ion-item>\n              <ion-item>\n                    <button ion-button outline color="danger" (click)="export()" >Google Translate</button>\n                    <button ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>\n              </ion-item>\n            </ion-card-content>\n          </ion-card>\n        </section>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/Users/pramodudakeri/Desktop/Localize/Localize/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Localization APP\n\n    </ion-title>\n\n    <ion-buttons end color="danger">\n\n      <button ion-button outline color="danger" (click)="download()">\n\n        EXPORT\n\n      </button>\n\n    </ion-buttons>\n\n    <a id="downloadAnchorElem" style="display:none"></a>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-grid>\n\n    <ion-row>\n\n      <ion-col col-12 col-sm-4 >\n\n        <ion-list>\n\n          <ion-item>\n\n            <ion-label>Input Language</ion-label>\n\n              <ion-select [(ngModel)]="inputLang">\n\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n\n            </ion-select>\n\n          </ion-item>\n\n        </ion-list>\n\n        <ion-list>\n\n          <ion-item>\n\n            <ion-label>Output Language</ion-label>\n\n              <ion-select [(ngModel)]="outputLang">\n\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n\n            </ion-select>\n\n          </ion-item>\n\n        </ion-list>\n\n        <ion-item>\n\n          <ion-label>Progress</ion-label>\n\n          <ion-badge item-end [color]="(progess==100)?\'secondary\':\'primary\'">{{progess}} %</ion-badge>\n\n        </ion-item>\n\n        <ion-item>\n\n          <input type=\'file\'  (change)="fileUploaded($event)" />\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-12 col-sm-8>\n\n        <section>\n\n          <ion-card *ngFor="let data of inputArray; let i = index">\n\n            <ion-card-header>\n\n              {{data.key}}\n\n            </ion-card-header>\n\n            <ion-card-content>\n\n              <p>{{data.value}}</p>\n\n              <ion-item>\n\n                  <ion-label style="margin:0px;"></ion-label>\n\n                  <div item-content style="width:100%;">\n\n                    <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>\n\n                  </div>\n\n              </ion-item>\n\n              <ion-item>\n\n                    <button ion-button outline color="danger" (click)="export()" >Google Translate</button>\n\n                    <button ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>\n\n              </ion-item>\n\n            </ion-card-content>\n\n          </ion-card>\n\n        </section>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\pages\home\home.html"*/
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */]) === "function" && _b || Object])
 ], HomePage);
@@ -162,6 +169,10 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(263);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -171,6 +182,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 
@@ -186,34 +199,37 @@ var LoaderProvider = (function () {
         this.http = http;
         this.tempName = "";
         this.langArray = [];
+        // Observable getInput source
+        this._inputSource = new __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["BehaviorSubject"](undefined);
+        // Observable getInput stream
+        this.getInput$ = this._inputSource.asObservable();
     }
-    LoaderProvider.prototype.getInput = function () {
+    LoaderProvider.prototype.fileUploaded = function (event) {
         var _this = this;
-        return this.http.get('../../assets/data/input.json')
-            .map(function (res) {
-            var data = res.json();
-            //console.log(data);
-            // this.traverse(data,this.process);
-            _this.printLang(data, "");
-            return _this.langArray;
-        });
+        var files = event.srcElement.files;
+        console.log(files);
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            // console.log(event.target.result);
+            var obj = JSON.parse(event.target.result);
+            // console.log(obj);
+            _this.langArray = [];
+            var tempObject = {};
+            localStorage.setItem("outputArray", JSON.stringify(tempObject));
+            _this.printLang(obj, "");
+            _this.changeInput(_this.langArray);
+        };
+        reader.readAsText(event.target.files[0]);
+    };
+    // service command
+    LoaderProvider.prototype.changeInput = function (array) {
+        this._inputSource.next(array);
     };
     LoaderProvider.prototype.setOutput = function (array) {
         return this.structuring(array);
     };
-    LoaderProvider.prototype.process = function (key, value) {
-        console.log(key + " : " + value);
-    };
-    LoaderProvider.prototype.traverse = function (o, func) {
-        for (var i in o) {
-            func.apply(this, [i, o[i]]);
-            if (o[i] !== null && typeof (o[i]) == "object") {
-                //going one step down in the object tree!!
-                this.traverse(o[i], func);
-            }
-        }
-    };
     LoaderProvider.prototype.printLang = function (obj, temp) {
+        console.log("printLang");
         if (this.tempName != "" && this.tempName != undefined) {
             this.tempName = this.tempName + "." + temp;
         }
@@ -251,20 +267,8 @@ var LoaderProvider = (function () {
         for (var key in uniJson) {
             var keys = key.split(".");
             keysArray.push(keys);
-            // console.log(this.getObject(keys,uniJson[key]));
         }
         return this.getObjectFinal(keysArray, "");
-    };
-    LoaderProvider.prototype.getObject = function (keys, value) {
-        var returnValue = {};
-        if (keys.length == 1) {
-            returnValue[keys[0]] = value;
-            return returnValue;
-        }
-        else {
-            returnValue[keys[0]] = this.getObject(keys.slice(1), value);
-            return returnValue;
-        }
     };
     LoaderProvider.prototype.getObjectFinal = function (keysArray, value) {
         // Getting unique keys at first index of provided keysArray
@@ -425,7 +429,7 @@ var MyApp = (function () {
     return MyApp;
 }());
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/pramodudakeri/Desktop/Localize/Localize/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/pramodudakeri/Desktop/Localize/Localize/src/app/app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\app\app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);

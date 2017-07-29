@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 // key AIzaSyCvYNYCL7booWW22Ymxd89el2W4qaIKnOE
 
 
@@ -15,42 +18,42 @@ export class LoaderProvider {
   private  tempName = "";
   private langArray = [];
 
-  constructor(public http: Http) {
-    
-  }
-  getInput(){
-
-
-    return  this.http.get('../../assets/data/input.json')
-            .map( (res) =>{
-              let data = res.json();
-                //console.log(data);
-                // this.traverse(data,this.process);
-                this.printLang(data,"");
-                
-                return this.langArray;
-            })
-
+  constructor(public http: Http) {    
   }
 
+  fileUploaded(event) {
+      var files = event.srcElement.files;
+      console.log(files);
+      var reader = new FileReader();
+      reader.onload = (event:any)=>{
+          // console.log(event.target.result);
+          var obj = JSON.parse(event.target.result);
+          // console.log(obj);
+          this.langArray = [];
+          let tempObject = {};
+          localStorage.setItem("outputArray",JSON.stringify(tempObject));
+          this.printLang(obj,"");
+          this.changeInput(this.langArray);
+      };
+      reader.readAsText(event.target.files[0]);
+  }
+
+  // Observable getInput source
+  private _inputSource = new BehaviorSubject<any>(undefined);
+  // Observable getInput stream
+  getInput$ = this._inputSource.asObservable();
+  // service command
+  changeInput(array) {
+    this._inputSource.next(array);
+  }
+  
+ 
   setOutput(array):any{
     return this.structuring(array);
   }
 
-  private process(key,value) {
-      console.log(key + " : "+value);
-  }
-  private traverse(o,func) {
-      for (var i in o) {
-          func.apply(this,[i,o[i]]);  
-          if (o[i] !== null && typeof(o[i])=="object") {
-              //going one step down in the object tree!!
-              this.traverse(o[i],func);
-          }
-      }
-  }
-
   private printLang(obj,temp){
+    console.log("printLang");
       if(this.tempName != "" && this.tempName != undefined){
           this.tempName = this.tempName + "." + temp;
       }
@@ -90,25 +93,14 @@ export class LoaderProvider {
     for(let key in uniJson){      
       let keys = key.split(".");
       keysArray.push(keys);  
-      // console.log(this.getObject(keys,uniJson[key]));
     }
     return this.getObjectFinal(keysArray,"")
 
   }
   
-  getObject(keys, value){
-    let returnValue = {};
-    if(keys.length == 1){      
-      returnValue[keys[0]] = value;
-      return returnValue;
-    }else{
-      returnValue[keys[0]] = this.getObject(keys.slice(1), value);
-      return returnValue;      
-    }
-  }
 
   getObjectFinal(keysArray, value){
-// Getting unique keys at first index of provided keysArray
+    // Getting unique keys at first index of provided keysArray
     if(keysArray[0] == "" ){
       //Recursion termination case
       return this._uniJson[value];
