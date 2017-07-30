@@ -43,7 +43,8 @@ export class HomePage {
     this.outputArray[key] = value;
     localStorage.setItem("outputArray",JSON.stringify(this.outputArray))
   }
-  download(val){
+  download(){
+    let val =  JSON.parse(localStorage.getItem("outputArray"));
     let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(val));
     let dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href",     dataStr     );

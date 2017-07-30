@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 106:
+/***/ 108:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -9,11 +9,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 106;
+webpackEmptyAsyncContext.id = 108;
 
 /***/ }),
 
-/***/ 148:
+/***/ 150:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -22,18 +22,18 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 148;
+webpackEmptyAsyncContext.id = 150;
 
 /***/ }),
 
-/***/ 193:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__ = __webpack_require__(196);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -124,7 +124,8 @@ var HomePage = (function () {
         this.outputArray[key] = value;
         localStorage.setItem("outputArray", JSON.stringify(this.outputArray));
     };
-    HomePage.prototype.download = function (val) {
+    HomePage.prototype.download = function () {
+        var val = JSON.parse(localStorage.getItem("outputArray"));
         var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(val));
         var dlAnchorElem = document.getElementById('downloadAnchorElem');
         dlAnchorElem.setAttribute("href", dataStr);
@@ -150,7 +151,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Localization APP\n\n    </ion-title>\n\n    <ion-buttons end color="danger">\n\n      <button ion-button outline color="danger" (click)="download()">\n\n        EXPORT\n\n      </button>\n\n    </ion-buttons>\n\n    <a id="downloadAnchorElem" style="display:none"></a>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-grid>\n\n    <ion-row>\n\n      <ion-col col-12 col-sm-4 >\n\n        <ion-list>\n\n          <ion-item>\n\n            <ion-label>Input Language</ion-label>\n\n              <ion-select [(ngModel)]="inputLang">\n\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n\n            </ion-select>\n\n          </ion-item>\n\n        </ion-list>\n\n        <ion-list>\n\n          <ion-item>\n\n            <ion-label>Output Language</ion-label>\n\n              <ion-select [(ngModel)]="outputLang">\n\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n\n            </ion-select>\n\n          </ion-item>\n\n        </ion-list>\n\n        <ion-item>\n\n          <ion-label>Progress</ion-label>\n\n          <ion-badge item-end [color]="(progess==100)?\'secondary\':\'primary\'">{{progess}} %</ion-badge>\n\n        </ion-item>\n\n        <ion-item>\n\n          <input type=\'file\'  (change)="fileUploaded($event)" />\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-12 col-sm-8>\n\n        <section>\n\n          <ion-card *ngFor="let data of inputArray; let i = index">\n\n            <ion-card-header>\n\n              {{data.key}}\n\n            </ion-card-header>\n\n            <ion-card-content>\n\n              <p>{{data.value}}</p>\n\n              <ion-item>\n\n                  <ion-label style="margin:0px;"></ion-label>\n\n                  <div item-content style="width:100%;">\n\n                    <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>\n\n                  </div>\n\n              </ion-item>\n\n              <ion-item>\n\n                    <button ion-button outline color="danger" (click)="export()" >Google Translate</button>\n\n                    <button ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>\n\n              </ion-item>\n\n            </ion-card-content>\n\n          </ion-card>\n\n        </section>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\pages\home\home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Localization APP\n\n    </ion-title>\n\n    <ion-buttons end color="danger">\n\n      <button ion-button outline color="danger" (click)="download()">\n\n        EXPORT\n\n      </button>\n\n    </ion-buttons>\n\n    <a id="downloadAnchorElem" style="display:none"></a>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-grid>\n\n    <ion-row>\n\n      <ion-col col-12 col-sm-4 >\n\n        <ion-list>\n\n          <ion-item>\n\n            <ion-label>Input Language</ion-label>\n\n              <ion-select [(ngModel)]="inputLang">\n\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n\n            </ion-select>\n\n          </ion-item>\n\n        </ion-list>\n\n        <ion-list>\n\n          <ion-item>\n\n            <ion-label>Output Language</ion-label>\n\n              <ion-select [(ngModel)]="outputLang">\n\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n\n            </ion-select>\n\n          </ion-item>\n\n        </ion-list>\n\n        <ion-item>\n\n          <ion-label>Progress</ion-label>\n\n          <ion-badge item-end [color]="(progess==100)?\'secondary\':\'primary\'">{{progess}} %</ion-badge>\n\n        </ion-item>\n\n        <ion-item>\n\n          <input type=\'file\'  (change)="fileUploaded($event)" />\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-12 col-sm-8>\n\n        <section>\n\n          <ion-card *ngFor="let data of inputArray; let i = index">\n\n            <ion-item>\n\n             {{i}} {{data.key}}\n\n              <button item-end ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>\n\n            </ion-item>\n\n            <ion-card-content>\n\n              <p class="selectable">{{data.value}}</p>\n\n              <ion-item>\n\n                  <ion-label style="margin:0px;"></ion-label>\n\n                  <div item-content style="width:100%;">\n\n                    <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>\n\n                  </div>\n\n              </ion-item>\n\n            </ion-card-content>\n\n          </ion-card>\n\n        </section>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\pages\home\home.html"*/
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */]) === "function" && _b || Object])
 ], HomePage);
@@ -160,19 +161,15 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 194:
+/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoaderProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(263);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__ = __webpack_require__(267);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -184,8 +181,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
-
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/observable/of';
+// import { Observable } from 'rxjs/Observable';
 
 // key AIzaSyCvYNYCL7booWW22Ymxd89el2W4qaIKnOE
 /*
@@ -197,12 +195,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var LoaderProvider = (function () {
     function LoaderProvider(http) {
         this.http = http;
-        this.tempName = "";
         this.langArray = [];
         // Observable getInput source
-        this._inputSource = new __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["BehaviorSubject"](undefined);
+        this._inputSource = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["BehaviorSubject"](undefined);
         // Observable getInput stream
         this.getInput$ = this._inputSource.asObservable();
+        this._destructuringKey = [];
     }
     LoaderProvider.prototype.fileUploaded = function (event) {
         var _this = this;
@@ -212,11 +210,12 @@ var LoaderProvider = (function () {
         reader.onload = function (event) {
             // console.log(event.target.result);
             var obj = JSON.parse(event.target.result);
-            // console.log(obj);
+            console.log(obj);
             _this.langArray = [];
             var tempObject = {};
             localStorage.setItem("outputArray", JSON.stringify(tempObject));
-            _this.printLang(obj, "");
+            _this.destructuring(obj, []);
+            console.log(_this.langArray);
             _this.changeInput(_this.langArray);
         };
         reader.readAsText(event.target.files[0]);
@@ -228,41 +227,33 @@ var LoaderProvider = (function () {
     LoaderProvider.prototype.setOutput = function (array) {
         return this.structuring(array);
     };
-    LoaderProvider.prototype.printLang = function (obj, temp) {
-        console.log("printLang");
-        if (this.tempName != "" && this.tempName != undefined) {
-            this.tempName = this.tempName + "." + temp;
-        }
-        else {
-            this.tempName = temp;
-        }
+    LoaderProvider.prototype.destructuring = function (obj, key) {
+        this._destructuringKey = key;
         for (var i in Object.getOwnPropertyNames(obj)) {
             if (typeof obj[Object.getOwnPropertyNames(obj)[i]] == "string") {
-                if (this.tempName != "" && this.tempName != undefined) {
-                    //console.log(this.tempName +"."+ Object.getOwnPropertyNames(obj)[i]+": "+obj[Object.getOwnPropertyNames(obj)[i]]);
-                    this.langArray.push({
-                        key: this.tempName + "." + Object.getOwnPropertyNames(obj)[i],
-                        value: obj[Object.getOwnPropertyNames(obj)[i]]
-                    });
-                }
-                else {
-                    //console.log(Object.getOwnPropertyNames(obj)[i]+":  "+obj[Object.getOwnPropertyNames(obj)[i]]);
+                if (this._destructuringKey.length == 0) {
                     this.langArray.push({
                         key: Object.getOwnPropertyNames(obj)[i],
                         value: obj[Object.getOwnPropertyNames(obj)[i]]
                     });
                 }
+                else {
+                    this.langArray.push({
+                        key: this._destructuringKey.join(".") + "." + Object.getOwnPropertyNames(obj)[i],
+                        value: obj[Object.getOwnPropertyNames(obj)[i]]
+                    });
+                }
             }
             else {
-                this.printLang(obj[Object.getOwnPropertyNames(obj)[i]], Object.getOwnPropertyNames(obj)[i]);
+                this._destructuringKey.push(Object.getOwnPropertyNames(obj)[i]);
+                this.destructuring(obj[Object.getOwnPropertyNames(obj)[i]], this._destructuringKey);
             }
         }
-        this.tempName = "";
+        this._destructuringKey.pop();
     };
     LoaderProvider.prototype.structuring = function (uniJson) {
         // console.log(uniJson);
         this._uniJson = uniJson;
-        var mulJson = {};
         var keysArray = [];
         for (var key in uniJson) {
             var keys = key.split(".");
@@ -312,12 +303,12 @@ var _a;
 
 /***/ }),
 
-/***/ 195:
+/***/ 197:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(214);
 
 
@@ -334,13 +325,13 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(262);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_loader_loader__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_elastic_textarea_elastic_textarea__ = __webpack_require__(264);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_loader_loader__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_elastic_textarea_elastic_textarea__ = __webpack_require__(267);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -399,9 +390,9 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(195);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -438,7 +429,7 @@ MyApp = __decorate([
 
 /***/ }),
 
-/***/ 264:
+/***/ 267:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -491,5 +482,5 @@ ElasticTextarea = __decorate([
 
 /***/ })
 
-},[195]);
+},[197]);
 //# sourceMappingURL=main.js.map

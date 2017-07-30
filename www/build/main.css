@@ -25199,9 +25199,11 @@ ion-navbar.toolbar {
   }
 }
 
-page-home section {
-  height: calc( 100vh - 100px);
-  overflow: scroll;
+.selectable {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 page-home .file-input-wrapper ion-label {

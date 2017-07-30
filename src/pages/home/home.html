@@ -43,20 +43,17 @@
       <ion-col col-12 col-sm-8>
         <section>
           <ion-card *ngFor="let data of inputArray; let i = index">
-            <ion-card-header>
-              {{data.key}}
-            </ion-card-header>
+            <ion-item>
+             {{i}} {{data.key}}
+              <button item-end ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>
+            </ion-item>
             <ion-card-content>
-              <p>{{data.value}}</p>
+              <p class="selectable">{{data.value}}</p>
               <ion-item>
                   <ion-label style="margin:0px;"></ion-label>
                   <div item-content style="width:100%;">
                     <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>
                   </div>
-              </ion-item>
-              <ion-item>
-                    <button ion-button outline color="danger" (click)="export()" >Google Translate</button>
-                    <button ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>
               </ion-item>
             </ion-card-content>
           </ion-card>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-import { Observable } from 'rxjs/Observable';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/observable/of';
+// import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 // key AIzaSyCvYNYCL7booWW22Ymxd89el2W4qaIKnOE
 
@@ -15,7 +15,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 */
 @Injectable()
 export class LoaderProvider {
-  private  tempName = "";
   private langArray = [];
 
   constructor(public http: Http) {    
@@ -28,11 +27,12 @@ export class LoaderProvider {
       reader.onload = (event:any)=>{
           // console.log(event.target.result);
           var obj = JSON.parse(event.target.result);
-          // console.log(obj);
+          console.log(obj);
           this.langArray = [];
           let tempObject = {};
           localStorage.setItem("outputArray",JSON.stringify(tempObject));
-          this.printLang(obj,"");
+          this.destructuring(obj,[]);
+          console.log(this.langArray);
           this.changeInput(this.langArray);
       };
       reader.readAsText(event.target.files[0]);
@@ -52,44 +52,38 @@ export class LoaderProvider {
     return this.structuring(array);
   }
 
-  private printLang(obj,temp){
-    console.log("printLang");
-      if(this.tempName != "" && this.tempName != undefined){
-          this.tempName = this.tempName + "." + temp;
-      }
-      else{
-          this.tempName = temp;
-      }
+  
+  private _destructuringKey = [];
+  private destructuring(obj,key){
 
-      for(let i in Object.getOwnPropertyNames(obj)){
-          if(typeof obj[Object.getOwnPropertyNames(obj)[i]] == "string"){
-              if(this.tempName != "" && this.tempName != undefined){
-                //console.log(this.tempName +"."+ Object.getOwnPropertyNames(obj)[i]+": "+obj[Object.getOwnPropertyNames(obj)[i]]);
-                this.langArray.push({
-                  key:this.tempName +"."+ Object.getOwnPropertyNames(obj)[i],
-                  value:obj[Object.getOwnPropertyNames(obj)[i]]
-                });
-              }
-              else{
-                //console.log(Object.getOwnPropertyNames(obj)[i]+":  "+obj[Object.getOwnPropertyNames(obj)[i]]);
-                this.langArray.push({
-                  key:Object.getOwnPropertyNames(obj)[i],
-                  value:obj[Object.getOwnPropertyNames(obj)[i]]
-                });
-              }
+    this._destructuringKey = key;
+    for(let i in Object.getOwnPropertyNames(obj)){
+        if(typeof obj[Object.getOwnPropertyNames(obj)[i]] == "string"){
+          if(this._destructuringKey.length == 0){
+            this.langArray.push({
+              key:Object.getOwnPropertyNames(obj)[i],
+              value:obj[Object.getOwnPropertyNames(obj)[i]]
+            });
+          }else{
+            this.langArray.push({
+              key:this._destructuringKey.join(".") + "."+ Object.getOwnPropertyNames(obj)[i],
+              value:obj[Object.getOwnPropertyNames(obj)[i]]
+            });
           }
-          else{
-          this.printLang(obj[Object.getOwnPropertyNames(obj)[i]],  Object.getOwnPropertyNames(obj)[i]);
-          }
-      }
-      this.tempName = "";
+
+        }
+        else{
+          this._destructuringKey.push(Object.getOwnPropertyNames(obj)[i]);
+          this.destructuring(obj[Object.getOwnPropertyNames(obj)[i]],this._destructuringKey  );
+        }
+    }
+    this._destructuringKey.pop();
   }
   private _uniJson
   private structuring(uniJson):any {
     // console.log(uniJson);
-    this._uniJson = uniJson
-    let mulJson = {};
-    let keysArray = []
+    this._uniJson = uniJson;
+    let keysArray = [];
     for(let key in uniJson){      
       let keys = key.split(".");
       keysArray.push(keys);  
