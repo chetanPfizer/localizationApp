@@ -33,6 +33,19 @@ export class LoaderProvider {
           localStorage.setItem("outputArray",JSON.stringify(tempObject));
           this.destructuring(obj,[]);
           console.log(this.langArray);
+          let csvRows = []
+          for(let data of this.langArray){
+            console.log(data.key,data.value);
+            csvRows.push(data.key+"^  "+data.value);
+          }
+          var csvString = csvRows.join("%0A");
+          var a         = document.createElement('a');
+          a.href        = 'data:text/txt,' + csvString;
+          a.target      = '_blank';
+          a.download    = 'myFile.txt';
+
+          document.body.appendChild(a);
+          a.click();
           this.changeInput(this.langArray);
       };
       reader.readAsText(event.target.files[0]);

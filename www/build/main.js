@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 108:
+/***/ 107:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -9,11 +9,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 108;
+webpackEmptyAsyncContext.id = 107;
 
 /***/ }),
 
-/***/ 150:
+/***/ 148:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -22,18 +22,18 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 150;
+webpackEmptyAsyncContext.id = 148;
 
 /***/ }),
 
-/***/ 195:
+/***/ 193:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__ = __webpack_require__(194);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -151,24 +151,23 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Localization APP\n\n    </ion-title>\n\n    <ion-buttons end color="danger">\n\n      <button ion-button outline color="danger" (click)="download()">\n\n        EXPORT\n\n      </button>\n\n    </ion-buttons>\n\n    <a id="downloadAnchorElem" style="display:none"></a>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-grid>\n\n    <ion-row>\n\n      <ion-col col-12 col-sm-4 >\n\n        <ion-list>\n\n          <ion-item>\n\n            <ion-label>Input Language</ion-label>\n\n              <ion-select [(ngModel)]="inputLang">\n\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n\n            </ion-select>\n\n          </ion-item>\n\n        </ion-list>\n\n        <ion-list>\n\n          <ion-item>\n\n            <ion-label>Output Language</ion-label>\n\n              <ion-select [(ngModel)]="outputLang">\n\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n\n            </ion-select>\n\n          </ion-item>\n\n        </ion-list>\n\n        <ion-item>\n\n          <ion-label>Progress</ion-label>\n\n          <ion-badge item-end [color]="(progess==100)?\'secondary\':\'primary\'">{{progess}} %</ion-badge>\n\n        </ion-item>\n\n        <ion-item>\n\n          <input type=\'file\'  (change)="fileUploaded($event)" />\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-12 col-sm-8>\n\n        <section>\n\n          <ion-card *ngFor="let data of inputArray; let i = index">\n\n            <ion-item>\n\n             {{i}} {{data.key}}\n\n              <button item-end ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>\n\n            </ion-item>\n\n            <ion-card-content>\n\n              <p class="selectable">{{data.value}}</p>\n\n              <ion-item>\n\n                  <ion-label style="margin:0px;"></ion-label>\n\n                  <div item-content style="width:100%;">\n\n                    <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>\n\n                  </div>\n\n              </ion-item>\n\n            </ion-card-content>\n\n          </ion-card>\n\n        </section>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\pages\home\home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/Users/pramodudakeri/Desktop/Localize/git/localizationApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Localization APP\n    </ion-title>\n    <ion-buttons end color="danger">\n      <button ion-button outline color="danger" (click)="download()">\n        EXPORT\n      </button>\n    </ion-buttons>\n    <a id="downloadAnchorElem" style="display:none"></a>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12 col-sm-4 >\n        <ion-list>\n          <ion-item>\n            <ion-label>Input Language</ion-label>\n              <ion-select [(ngModel)]="inputLang">\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-list>\n        <ion-list>\n          <ion-item>\n            <ion-label>Output Language</ion-label>\n              <ion-select [(ngModel)]="outputLang">\n              <ion-option *ngFor="let lang of languages" [value]="lang.code">{{lang.text}}</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-list>\n        <ion-item>\n          <ion-label>Progress</ion-label>\n          <ion-badge item-end [color]="(progess==100)?\'secondary\':\'primary\'">{{progess}} %</ion-badge>\n        </ion-item>\n        <ion-item>\n          <input type=\'file\'  (change)="fileUploaded($event)" />\n        </ion-item>\n      </ion-col>\n      <ion-col col-12 col-sm-8>\n        <section>\n          <ion-card *ngFor="let data of inputArray; let i = index">\n            <ion-item>\n             {{i}} {{data.key}}\n              <button item-end ion-button outline="{{!data.isDone}}" color="secondary" (click)="markAsDone(i)" >{{data.isDone?"Varified":"Mark as varified"}}</button>\n            </ion-item>\n            <ion-card-content>\n              <p class="selectable">{{data.value}}</p>\n              <ion-item>\n                  <ion-label style="margin:0px;"></ion-label>\n                  <div item-content style="width:100%;">\n                    <elastic-textarea placeholder="Type to compose" lineHeight="22" [content]="outputArray[data.key]" (onValueChange)="onValueChange(data.key,$event)"></elastic-textarea>\n                  </div>\n              </ion-item>\n            </ion-card-content>\n          </ion-card>\n        </section>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/Users/pramodudakeri/Desktop/Localize/git/localizationApp/src/pages/home/home.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_loader_loader__["a" /* LoaderProvider */]])
 ], HomePage);
 
-var _a, _b;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ 196:
+/***/ 194:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoaderProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__(263);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -216,6 +215,19 @@ var LoaderProvider = (function () {
             localStorage.setItem("outputArray", JSON.stringify(tempObject));
             _this.destructuring(obj, []);
             console.log(_this.langArray);
+            var csvRows = [];
+            for (var _i = 0, _a = _this.langArray; _i < _a.length; _i++) {
+                var data = _a[_i];
+                console.log(data.key, data.value);
+                csvRows.push(data.key + "^  " + data.value);
+            }
+            var csvString = csvRows.join("%0A");
+            var a = document.createElement('a');
+            a.href = 'data:text/txt,' + csvString;
+            a.target = '_blank';
+            a.download = 'myFile.txt';
+            document.body.appendChild(a);
+            a.click();
             _this.changeInput(_this.langArray);
         };
         reader.readAsText(event.target.files[0]);
@@ -275,7 +287,7 @@ var LoaderProvider = (function () {
             }
         }
         var returnValue = {};
-        var _loop_1 = function (i) {
+        for (var i in uniqueKey) {
             var newKeysArray = keysArray.filter(function (e) { return e[0] === uniqueKey[i]; });
             // console.log(newKeysArray);
             var keyNow = newKeysArray[0];
@@ -283,11 +295,7 @@ var LoaderProvider = (function () {
                 newKeysArray[j] = newKeysArray[j].slice(1);
             }
             // console.log(keyNow[0]);   
-            returnValue[keyNow[0]] = this_1.getObjectFinal(newKeysArray, value + ((value == "") ? "" : ".") + keyNow[0]);
-        };
-        var this_1 = this;
-        for (var i in uniqueKey) {
-            _loop_1(i);
+            returnValue[keyNow[0]] = this.getObjectFinal(newKeysArray, value + ((value == "") ? "" : ".") + keyNow[0]);
         }
         return returnValue;
     };
@@ -295,21 +303,20 @@ var LoaderProvider = (function () {
 }());
 LoaderProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
 ], LoaderProvider);
 
-var _a;
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
 
-/***/ 197:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(213);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -317,7 +324,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 214:
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -325,13 +332,13 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(262);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_loader_loader__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_elastic_textarea_elastic_textarea__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_loader_loader__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_elastic_textarea_elastic_textarea__ = __webpack_require__(264);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -390,9 +397,9 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(193);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -420,7 +427,7 @@ var MyApp = (function () {
     return MyApp;
 }());
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Chetan\Documents\GitHub\localizationApp\src\app\app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/pramodudakeri/Desktop/Localize/git/localizationApp/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/pramodudakeri/Desktop/Localize/git/localizationApp/src/app/app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);
@@ -429,7 +436,7 @@ MyApp = __decorate([
 
 /***/ }),
 
-/***/ 267:
+/***/ 264:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -482,5 +489,5 @@ ElasticTextarea = __decorate([
 
 /***/ })
 
-},[197]);
+},[195]);
 //# sourceMappingURL=main.js.map
